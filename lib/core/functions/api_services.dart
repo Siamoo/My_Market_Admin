@@ -1,11 +1,12 @@
 
 import 'package:dio/dio.dart';
+import 'package:my_market_admin/core/functions/sensitive_data.dart';
 
 class ApiServices {
   final Dio _dio = Dio(
     BaseOptions(
       baseUrl: 'https://rmmvawnbnfdsyjbgturm.supabase.co/rest/v1/',
-      headers: {'apikey': ''},
+      headers: {'apikey': anonkey},
     ),
   );
   Future<Response> getData(String endponit) async {

@@ -15,31 +15,35 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: TextStyle(fontSize: 14, color: AppColors.kGreyColor),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.kBordersideColor),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: TextFormField(
+        cursorColor: AppColors.kWhiteColor,
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: TextStyle(fontSize: 14, color: AppColors.kGreyColor),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.kBordersideColor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.kBordersideColor),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColors.kBordersideColor),
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          suffixIcon: suffixIcon,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.kBordersideColor),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.kBordersideColor),
-        ),
-        contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-        suffixIcon: suffixIcon,
-      ),
 
-      keyboardType: TextInputType.name,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your $labelText';
-        }
-        return null;
-      },
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your $labelText';
+          }
+          return null;
+        },
+      ),
     );
   }
 }
