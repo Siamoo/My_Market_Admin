@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market_admin/core/components/custom_elevated_button.dart';
 import 'package:my_market_admin/core/components/custom_text_form_field.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
 
@@ -19,7 +20,7 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       appBar: customAppBar(context, 'Login As An Admin'),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center ,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 10),
           CustomTextFormField(controller: emailController, labelText: 'email'),
@@ -27,6 +28,17 @@ class _LoginViewState extends State<LoginView> {
           CustomTextFormField(
             controller: passwordController,
             labelText: 'password',
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.remove_red_eye),
+              onPressed: () {},
+            ),
+          ),
+          SizedBox(height: 20),
+          CustomElevatedButton(
+            width: 100,
+            height: 40,
+            child: const Text('Login'),
+            onPressed: () {},
           ),
         ],
       ),
