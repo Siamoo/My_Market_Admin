@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomImage extends StatelessWidget {
-  const CustomImage({
+class CustomNetworkImage extends StatelessWidget {
+  const CustomNetworkImage({
     super.key,
     required this.width,
     required this.height,
@@ -16,7 +16,7 @@ class CustomImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius ?? 20),
-      child: Image.asset(
+      child: Image.network(
         imageUrl,
         width: width,
         height: height,

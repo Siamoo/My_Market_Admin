@@ -4,13 +4,13 @@ import 'package:my_market_admin/core/functions/app_colors.dart';
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
-    required this.width,
-    required this.height,
-    required this.child,
+    this.width = 200,
+    this.height = 40,
     required this.onPressed,
+    required this.child,
   });
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final Widget child;
   final VoidCallback onPressed;
   @override
@@ -22,6 +22,9 @@ class CustomElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.kPrimaryColor,
           foregroundColor: AppColors.kWhiteColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
         onPressed: onPressed,
         child: child,
