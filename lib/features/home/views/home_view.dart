@@ -13,27 +13,69 @@ class HomeView extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: customAppBar(context, 'Home'),
-      body: Row(
-        children: [
-          CustomElevatedButton(
-            width: width * .3,
-            height: height * .3,
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CustomElevatedButton(
+              width: width * .3,
+              height: height * .3,
 
-            onPressed: () {
-              NavigationService.pushTo(context, ProductsView());
-            },
-            child: Column(
-              children: [
-                Text(
-                  'products',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                ),
-                SizedBox(height: 10),
-                Icon(Icons.shopping_bag, size: 50),
-              ],
+              onPressed: () {
+                NavigationService.pushTo(context, ProductsView());
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Products',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                  SizedBox(height: 10),
+                  Icon(Icons.shopping_bag, size: 50),
+                ],
+              ),
             ),
-          ),
-        ],
+                        CustomElevatedButton(
+              width: width * .3,
+              height: height * .3,
+
+              onPressed: () {
+                NavigationService.pushTo(context, ProductsView());
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Add Product',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                  SizedBox(height: 10),
+                  Icon(Icons.add, size: 50),
+                ],
+              ),
+            ),
+                        CustomElevatedButton(
+              width: width * .3,
+              height: height * .3,
+
+              onPressed: () {
+                NavigationService.pushTo(context, ProductsView());
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Add An Admin',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                  SizedBox(height: 10),
+                  Icon(Icons.admin_panel_settings, size: 50),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
