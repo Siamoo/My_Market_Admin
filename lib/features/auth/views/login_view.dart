@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_market_admin/core/components/custom_elevated_button.dart';
 import 'package:my_market_admin/core/components/custom_text_form_field.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
+import 'package:my_market_admin/core/functions/navigation_service.dart';
+import 'package:my_market_admin/features/home/views/home_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -38,7 +40,9 @@ class _LoginViewState extends State<LoginView> {
             width: 100,
             height: 40,
             child: const Text('Login'),
-            onPressed: () {},
+            onPressed: () {
+              NavigationService.pushTo(context,  HomeView());
+            },
           ),
         ],
       ),
