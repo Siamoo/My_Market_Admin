@@ -4,9 +4,21 @@ import 'package:my_market_admin/core/components/custom_network_image.dart';
 import 'package:my_market_admin/core/components/custom_text_form_field.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
 
-class EditProductsView extends StatelessWidget {
+class EditProductsView extends StatefulWidget {
   const EditProductsView({super.key});
 
+  @override
+  State<EditProductsView> createState() => _EditProductsViewState();
+}
+
+class _EditProductsViewState extends State<EditProductsView> {
+  String selectedValue = 'collections';
+  String sale = '10';
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController oldPriceController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -20,8 +32,35 @@ class EditProductsView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                DropdownMenu(
+                  onSelected: (String? value) {
+                    setState(() {
+                      selectedValue = value ?? 'collections';
+                    });
+                  },
+                  initialSelection: selectedValue,
+                  dropdownMenuEntries: [
+                    DropdownMenuEntry(
+                      label: 'collections',
+                      value: 'collections',
+                    ),
+                    DropdownMenuEntry(
+                      label: 'electronics',
+                      value: 'electronics',
+                    ),
+                    DropdownMenuEntry(label: 'sports', value: 'sports'),
+                    DropdownMenuEntry(label: 'books', value: 'books'),
+                    DropdownMenuEntry(label: 'games', value: 'games'),
+                    DropdownMenuEntry(label: 'cars', value: 'cars'),
+                  ],
+                ),
+
                 Column(
-                  children: [Text('Sale'), SizedBox(height: 10), Text('10 %')],
+                  children: [
+                    Text('Sale', style: TextStyle(fontWeight: FontWeight.bold)),
+                    SizedBox(height: 10),
+                    Text('$sale %'),
+                  ],
                 ),
                 Column(
                   children: [
@@ -50,25 +89,34 @@ class EditProductsView extends StatelessWidget {
               ],
             ),
             SizedBox(height: 60),
-            CustomTextFormField(labelText: 'Product Name'),
+            CustomTextFormField(labelText: 'Product Name', controller: productNameController),
             SizedBox(height: 10),
-            CustomTextFormField(labelText: 'New Price'),
+            CustomTextFormField(labelText: 'New Price', controller: priceController),
             SizedBox(height: 10),
-            CustomTextFormField(labelText: 'Old Price'),
+            CustomTextFormField(labelText: 'Old Price' , controller: oldPriceController),
             SizedBox(height: 10),
-            CustomTextFormField(labelText: 'Sale'),
-            SizedBox(height: 10),
-            CustomTextFormField(labelText: 'Product Description'),
+            CustomTextFormField(labelText: 'Product Description', controller: descriptionController),
             SizedBox(height: 40),
-            CustomElevatedButton(
-              width: width * .1,
-              height: height * .05,
-              child: const Text('Save'),
-              onPressed: () {},
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical:16  ),
+              child: CustomElevatedButton(
+                width: width * .1,
+                height: height * .05,
+                child: const Text('Update'),
+                onPressed: () {},
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    productNameController.dispose();
+    priceController.dispose();
+    oldPriceController.dispose();
+    descriptionController.dispose();
+    super.dispose();
   }
 }
