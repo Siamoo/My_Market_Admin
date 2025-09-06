@@ -4,12 +4,12 @@ import 'package:my_market_admin/core/functions/app_colors.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required this.controller,
+    this.controller,
     required this.labelText,
     this.suffixIcon,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
   final Widget? suffixIcon;
 

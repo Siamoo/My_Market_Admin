@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_market_admin/core/components/custom_elevated_button.dart';
 import 'package:my_market_admin/core/components/custom_network_image.dart';
+import 'package:my_market_admin/core/components/custom_text_form_field.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
 
 class EditProductsView extends StatelessWidget {
@@ -48,7 +49,23 @@ class EditProductsView extends StatelessWidget {
                 ),
               ],
             ),
-
+            SizedBox(height: 60),
+            CustomTextFormField(labelText: 'Product Name'),
+            SizedBox(height: 10),
+            CustomTextFormField(labelText: 'New Price'),
+            SizedBox(height: 10),
+            CustomTextFormField(labelText: 'Old Price'),
+            SizedBox(height: 10),
+            CustomTextFormField(labelText: 'Sale'),
+            SizedBox(height: 10),
+            CustomTextFormField(labelText: 'Product Description'),
+            SizedBox(height: 40),
+            CustomElevatedButton(
+              width: width * .1,
+              height: height * .05,
+              child: const Text('Save'),
+              onPressed: () {},
+            ),
           ],
         ),
       ),
