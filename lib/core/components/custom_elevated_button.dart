@@ -4,7 +4,7 @@ import 'package:my_market_admin/core/functions/app_colors.dart';
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
-    this.width = 200,
+    this.width = 100,
     this.height = 40,
     required this.onPressed,
     required this.child,
