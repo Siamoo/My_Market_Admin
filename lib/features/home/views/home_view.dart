@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_market_admin/core/components/custom_elevated_button.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
 import 'package:my_market_admin/core/functions/navigation_service.dart';
+import 'package:my_market_admin/features/add_admin/views/add_admin_view.dart';
 import 'package:my_market_admin/features/add_product/views/add_product.dart';
 import 'package:my_market_admin/features/products/views/products_view.dart';
 
@@ -61,7 +62,7 @@ class HomeView extends StatelessWidget {
               height: height * .3,
 
               onPressed: () {
-                NavigationService.pushTo(context, ProductsView());
+                NavigationService.pushTo(context, AddAdminView());
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
