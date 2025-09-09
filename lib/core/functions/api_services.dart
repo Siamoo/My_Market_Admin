@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:my_market_admin/core/functions/sensitive_data.dart';
 
@@ -23,5 +22,19 @@ class ApiServices {
 
   Future<Response> deleteData(String endponit) async {
     return await _dio.delete(endponit);
+  }
+
+  final Dio _dioauth = Dio(
+    BaseOptions(
+      baseUrl: 'https://rmmvawnbnfdsyjbgturm.supabase.co/auth/v1/',
+      headers: {'apikey': anonkey},
+    ),
+  );
+
+  Future<Response> createAnAccount(
+    String endponit,
+    Map<String, dynamic> data,
+  ) async {
+    return await _dioauth.post(endponit, data: data);
   }
 }
