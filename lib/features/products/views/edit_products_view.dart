@@ -3,6 +3,7 @@ import 'package:my_market_admin/core/components/custom_elevated_button.dart';
 import 'package:my_market_admin/core/components/custom_network_image.dart';
 import 'package:my_market_admin/core/components/custom_text_form_field.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
+import 'package:my_market_admin/core/functions/shared_pref.dart';
 
 class EditProductsView extends StatefulWidget {
   const EditProductsView({super.key});
@@ -103,7 +104,10 @@ class _EditProductsViewState extends State<EditProductsView> {
                 width: width * .1,
                 height: height * .05,
                 child: const Text('Update'),
-                onPressed: () {},
+                onPressed: () async {
+                  String? token = await SharedPref.getToken();
+                  print('token $token');
+                },
               ),
             ),
           ],
