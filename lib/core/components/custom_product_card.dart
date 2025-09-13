@@ -57,7 +57,7 @@ class CustomProductCard extends StatelessWidget {
                       height: height * .05,
                       child: Icon(Icons.edit),
                       onPressed: () =>
-                          NavigationService.pushTo(context, EditProductsView()),
+                          NavigationService.pushTo(context, EditProductsView(product: product)),
                     ),
                   ],
                 ),
