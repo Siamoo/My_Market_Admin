@@ -12,7 +12,7 @@ class AddAdminCubit extends Cubit<AddAdminState> {
 
   Future<void> creartAnAccount(Map<String, dynamic> data) async {
     emit(CreateAdminLoading());
-    try { 
+    try {
       Response response = await _apiServices.createAnAccount('signup', data);
       if (response.statusCode == 200) {
         emit(CreateAdminSuccess());
@@ -24,4 +24,3 @@ class AddAdminCubit extends Cubit<AddAdminState> {
     }
   }
 }
-  

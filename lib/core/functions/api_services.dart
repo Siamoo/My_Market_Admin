@@ -8,8 +8,11 @@ class ApiServices {
       headers: {'apikey': anonkey},
     ),
   );
-  Future<Response> getData(String endponit , String? token) async {
-    return await _dio.get(endponit, options: Options(headers: {'Authorization': 'Bearer $token'}));
+  Future<Response> getData(String endponit, String? token) async {
+    return await _dio.get(
+      endponit,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 
   Future<Response> postData(String endponit, Map<String, dynamic> data) async {

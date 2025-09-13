@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_market_admin/core/components/custom_product_card.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
 import 'package:my_market_admin/features/products/cubit/cubit/products_cubit.dart';
+import 'package:my_market_admin/features/products/models/products.dart';
 
 class ProductsView extends StatelessWidget {
   const ProductsView({super.key});
@@ -13,14 +14,16 @@ class ProductsView extends StatelessWidget {
       create: (context) => ProductsCubit()..getProducts(),
       child: BlocConsumer<ProductsCubit, ProductsState>(
         listener: (context, state) {
-          
+          if (state is GetProductsError) {}
+         
         },
         builder: (context, state) {
+          ProductsCubit cubit = context.read<ProductsCubit>();
           return Scaffold(
             appBar: customAppBar(context, 'Products'),
-            body: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => const CustomProductCard(),
+            body: state is GetProductsLoading ? const Center(child: CircularProgressIndicator()) : ListView.builder(
+              itemCount: cubit.products.length,
+              itemBuilder: (context, index) =>  CustomProductCard( product: cubit.products[index],),
             ),
           );
         },

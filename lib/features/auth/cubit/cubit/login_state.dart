@@ -17,4 +17,3 @@ final class LoginError extends LoginState {
   final String message;
   const LoginError(this.message);
 }
-

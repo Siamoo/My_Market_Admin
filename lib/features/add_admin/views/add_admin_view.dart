@@ -29,50 +29,48 @@ class _AddAdminViewState extends State<AddAdminView> {
             if (state is CreateAdminSuccess) {
               NavigationService.navigateWithoutBack(context, LoginView());
             }
-            if (state is CreateAdminError) {
-            
-            }
+            if (state is CreateAdminError) {}
           },
           builder: (context, state) {
             AddAdminCubit cubit = context.read<AddAdminCubit>();
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
-              child: state is CreateAdminLoading ? const Center(child: CircularProgressIndicator()) : Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    CustomTextFormField(
-                      labelText: 'Email',
-                      controller: emailController,
-                    ),
-                    SizedBox(height: 20),
-                    CustomTextFormField(
-                      labelText: 'Password',
-                      controller: passwordController,
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.remove_red_eye),
+              child: state is CreateAdminLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          CustomTextFormField(
+                            labelText: 'Email',
+                            controller: emailController,
+                          ),
+                          SizedBox(height: 20),
+                          CustomTextFormField(
+                            labelText: 'Password',
+                            controller: passwordController,
+                            suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.remove_red_eye),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          CustomElevatedButton(
+                            width: 100,
+                            height: 40,
+                            child: const Text('Add'),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                cubit.creartAnAccount({
+                                  'email': emailController.text,
+                                  'password': passwordController.text,
+                                });
+                              }
+                            },
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(height: 20),
-                    CustomElevatedButton(
-                      width: 100,
-                      height: 40,
-                      child: const Text('Add'),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          cubit.creartAnAccount(
-                            {
-                              'email': emailController.text,
-                              'password': passwordController.text,
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
             );
           },
         ),

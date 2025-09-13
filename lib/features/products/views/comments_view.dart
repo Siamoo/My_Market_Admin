@@ -10,16 +10,17 @@ class CommentsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context, 'Comments'),
-      body: ListView.builder(itemBuilder: (context, index) =>  CommentCard(), itemCount: 10,),
+      body: ListView.builder(
+        itemBuilder: (context, index) => CommentCard(),
+        itemCount: 10,
+      ),
     );
   }
 }
 
 class CommentCard extends StatelessWidget {
-   CommentCard({
-    super.key,
-  });
- final TextEditingController _replyController = TextEditingController();
+  CommentCard({super.key});
+  final TextEditingController _replyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,8 +40,10 @@ class CommentCard extends StatelessWidget {
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: CustomTextFormField(labelText: 'Reply', controller: _replyController,),
-                
+                child: CustomTextFormField(
+                  labelText: 'Reply',
+                  controller: _replyController,
+                ),
               ),
               SizedBox(height: 10),
               CustomElevatedButton(
@@ -54,5 +57,4 @@ class CommentCard extends StatelessWidget {
       ),
     );
   }
-
 }

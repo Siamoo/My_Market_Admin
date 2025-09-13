@@ -18,7 +18,7 @@ class _AddProductViewState extends State<AddProductView> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController oldPriceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -89,16 +89,28 @@ class _AddProductViewState extends State<AddProductView> {
               ],
             ),
             SizedBox(height: 60),
-            CustomTextFormField(labelText: 'Product Name', controller: productNameController),
+            CustomTextFormField(
+              labelText: 'Product Name',
+              controller: productNameController,
+            ),
             SizedBox(height: 10),
-            CustomTextFormField(labelText: 'New Price', controller: priceController),
+            CustomTextFormField(
+              labelText: 'New Price',
+              controller: priceController,
+            ),
             SizedBox(height: 10),
-            CustomTextFormField(labelText: 'Old Price' , controller: oldPriceController),
+            CustomTextFormField(
+              labelText: 'Old Price',
+              controller: oldPriceController,
+            ),
             SizedBox(height: 10),
-            CustomTextFormField(labelText: 'Product Description', controller: descriptionController),
+            CustomTextFormField(
+              labelText: 'Product Description',
+              controller: descriptionController,
+            ),
             SizedBox(height: 40),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical:16  ),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               child: CustomElevatedButton(
                 width: width * .1,
                 height: height * .05,
@@ -111,6 +123,7 @@ class _AddProductViewState extends State<AddProductView> {
       ),
     );
   }
+
   @override
   void dispose() {
     productNameController.dispose();

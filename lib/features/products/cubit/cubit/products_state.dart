@@ -14,4 +14,3 @@ final class GetProductsLoading extends ProductsState {}
 final class GetProductsSuccess extends ProductsState {}
 
 final class GetProductsError extends ProductsState {}
-

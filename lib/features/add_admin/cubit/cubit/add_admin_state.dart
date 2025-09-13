@@ -8,9 +8,12 @@ sealed class AddAdminState extends Equatable {
 }
 
 final class AddAdminInitial extends AddAdminState {}
+
 final class CreateAdminLoading extends AddAdminState {}
+
 final class CreateAdminSuccess extends AddAdminState {}
+
 final class CreateAdminError extends AddAdminState {
   final String message;
   const CreateAdminError(this.message);
-} 
+}
