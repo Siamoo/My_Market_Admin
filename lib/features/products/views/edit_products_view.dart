@@ -1,4 +1,6 @@
+    
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_market_admin/core/components/custom_elevated_button.dart';
 import 'package:my_market_admin/core/components/custom_network_image.dart';
 import 'package:my_market_admin/core/components/custom_text_form_field.dart';
@@ -22,10 +24,18 @@ class _EditProductsViewState extends State<EditProductsView> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController oldPriceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+
+  String saleCalc(int oldPrice, int price) {
+    return ((oldPrice - price) / oldPrice * 100).round().toString();
+  }
+
   @override
   void initState() {
     selectedValue = widget.product.category;
-    sale = widget.product.sale;
+    sale = saleCalc(
+      int.parse(widget.product.oldPrice ?? '2'),
+      int.parse(widget.product.price ?? '1'),
+    );
     productNameController.text = widget.product.productName ?? '';
     priceController.text = widget.product.price ?? '';
     oldPriceController.text = widget.product.oldPrice ?? '';
@@ -110,13 +120,33 @@ class _EditProductsViewState extends State<EditProductsView> {
             ),
             SizedBox(height: 10),
             CustomTextFormField(
-              labelText: 'New Price',
-              controller: priceController,
+              keyboardType: TextInputType.number,
+              labelText: 'Old Price',
+              controller: oldPriceController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              onChanged: (String value) {
+                setState(() {
+                  sale = saleCalc(
+                    double.parse(value).toInt(),
+                    int.parse(priceController.text),
+                  );
+                });
+              },
             ),
             SizedBox(height: 10),
             CustomTextFormField(
-              labelText: 'Old Price',
-              controller: oldPriceController,
+              keyboardType: TextInputType.number,
+              labelText: 'New Price',
+              controller: priceController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              onChanged: (String value) {
+                setState(() {
+                  sale = saleCalc(
+                    int.parse(oldPriceController.text),
+                    int.parse(value),
+                  );
+                });
+              },
             ),
             SizedBox(height: 10),
             CustomTextFormField(

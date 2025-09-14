@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_market_admin/core/functions/app_colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -7,17 +8,24 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     required this.labelText,
     this.suffixIcon,
+    this.onChanged, this.inputFormatters, this.keyboardType,
   });
 
   final TextEditingController? controller;
   final String labelText;
   final Widget? suffixIcon;
+  final Function(String)? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: TextFormField(
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        onChanged: onChanged,
         cursorColor: AppColors.kWhiteColor,
         controller: controller,
         decoration: InputDecoration(
@@ -36,7 +44,6 @@ class CustomTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
         ),
 
-        keyboardType: TextInputType.name,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter your $labelText';
