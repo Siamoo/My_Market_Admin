@@ -19,8 +19,16 @@ class ApiServices {
     return await _dio.post(endponit, data: data);
   }
 
-  Future<Response> patchData(String endponit, Map<String, dynamic> data) async {
-    return await _dio.patch(endponit, data: data);
+  Future<Response> patchData(
+    String endponit,
+    Map<String, dynamic> data,
+    String? token,
+  ) async {
+    return await _dio.patch(
+      endponit,
+      data: data,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 
   Future<Response> deleteData(String endponit) async {
