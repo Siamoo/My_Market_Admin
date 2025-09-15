@@ -60,13 +60,34 @@ class ProductsCubit extends Cubit<ProductsState> {
         ),
       );
       if (response.statusCode == 200) {
-        imageUrl = 'https://rmmvawnbnfdsyjbgturm.supabase.co/storage/v1/object/public/${response.data['Key']}';
-        
+        imageUrl =
+            'https://rmmvawnbnfdsyjbgturm.supabase.co/storage/v1/object/public/${response.data['Key']}';
+
         print(response.data['Key']);
         emit(UploadImageSuccess());
       }
     } catch (e) {
       emit(UploadImageError());
+    }
+  }
+
+  Future<void> editProduct({
+    required Map<String, dynamic> data,
+    required String productId,
+  }) async {
+    emit(EditProductLoading());
+    try {
+      String? token = await SharedPref.getToken();
+      Response response=await apiServices.patchData(
+        'products_table?id=eq.$productId',
+        data,
+        token,
+      );
+      if (response.statusCode == 204) {
+        emit(EditProductSuccess());
+      }
+    } catch (e) {
+      emit(EditProductError());
     }
   }
 }
