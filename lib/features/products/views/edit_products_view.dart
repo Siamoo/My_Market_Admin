@@ -27,6 +27,7 @@ class _EditProductsViewState extends State<EditProductsView> {
   final TextEditingController priceController = TextEditingController();
   final TextEditingController oldPriceController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   String saleCalc(int oldPrice, int price) {
     return ((oldPrice - price) / oldPrice * 100).round().toString();
@@ -58,6 +59,7 @@ class _EditProductsViewState extends State<EditProductsView> {
       child: BlocConsumer<ProductsCubit, ProductsState>(
         listener: (context, state) {
           if (state is EditProductSuccess) {
+            NavigationService.pop(context);
             NavigationService.navigateWithoutBack(
               context,
               const ProductsView(),
@@ -72,86 +74,92 @@ class _EditProductsViewState extends State<EditProductsView> {
                 ? const CircularProgressIndicator()
                 : Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0,
+                      horizontal: 10,
                       vertical: 30,
                     ),
-                    child: ListView(
-                      children: [
-                        _buidEditProduct(width, height, state, cubit),
-                        SizedBox(height: 60),
-                        CustomTextFormField(
-                          labelText: 'Product Name',
-                          controller: productNameController,
-                        ),
-                        SizedBox(height: 10),
-                        CustomTextFormField(
-                          keyboardType: TextInputType.number,
-                          labelText: 'Old Price',
-                          controller: oldPriceController,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          onChanged: (String value) {
-                            setState(() {
-                              sale = saleCalc(
-                                double.parse(value).toInt(),
-                                int.parse(priceController.text),
-                              );
-                            });
-                          },
-                        ),
-                        SizedBox(height: 10),
-                        CustomTextFormField(
-                          keyboardType: TextInputType.number,
-                          labelText: 'New Price',
-                          controller: priceController,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          onChanged: (String value) {
-                            setState(() {
-                              sale = saleCalc(
-                                int.parse(oldPriceController.text),
-                                int.parse(value),
-                              );
-                            });
-                          },
-                        ),
-                        SizedBox(height: 10),
-                        CustomTextFormField(
-                          labelText: 'Product Description',
-                          controller: descriptionController,
-                        ),
-                        SizedBox(height: 40),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: CustomElevatedButton(
-                            width: width * .1,
-                            height: height * .05,
-                            onPressed: state is UploadImageLoading
-                                ? null
-                                : () async {
-                                    cubit.editProduct(
-                                      productId: widget.product.id!,
-                                      data: {
-                                        "product_name":
-                                            productNameController.text,
-                                        "price": priceController.text,
-                                        "old_price": oldPriceController.text,
-                                        "sale": sale,
-                                        "description":
-                                            descriptionController.text,
-                                        "category": selectedValue,
-                                        "image_url": cubit.imageUrl.isEmpty
-                                            ? widget.product.imageUrl
-                                            : cubit.imageUrl,
-                                      },
-                                    );
-                                  },
-                            child: Text('Update'),
+                    child: Form(
+                      key: _globalKey,
+                      child: ListView(
+                        children: [
+                          _buidEditProduct(width, height, state, cubit),
+                          SizedBox(height: 60),
+                          CustomTextFormField(
+                            labelText: 'Product Name',
+                            controller: productNameController,
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 10),
+                          CustomTextFormField(
+                            keyboardType: TextInputType.number,
+                            labelText: 'Old Price',
+                            controller: oldPriceController,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            onChanged: (String value) {
+                              setState(() {
+                                sale = saleCalc(
+                                  double.parse(value).toInt(),
+                                  int.parse(priceController.text),
+                                );
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFormField(
+                            keyboardType: TextInputType.number,
+                            labelText: 'New Price',
+                            controller: priceController,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            onChanged: (String value) {
+                              setState(() {
+                                sale = saleCalc(
+                                  int.parse(oldPriceController.text),
+                                  int.parse(value),
+                                );
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFormField(
+                            labelText: 'Product Description',
+                            controller: descriptionController,
+                          ),
+                          SizedBox(height: 40),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: CustomElevatedButton(
+                              width: width * .1,
+                              height: height * .05,
+                              onPressed: state is UploadImageLoading
+                                  ? null
+                                  : () async {
+                                      if (_globalKey.currentState!.validate()) {
+                                        cubit.editProduct(
+                                          productId: widget.product.id!,
+                                          data: {
+                                            "product_name":
+                                                productNameController.text,
+                                            "price": priceController.text,
+                                            "old_price":
+                                                oldPriceController.text,
+                                            "sale": sale,
+                                            "description":
+                                                descriptionController.text,
+                                            "category": selectedValue,
+                                            "image_url": cubit.imageUrl.isEmpty
+                                                ? widget.product.imageUrl
+                                                : cubit.imageUrl,
+                                          },
+                                        );
+                                      }
+                                    },
+                              child: Text('Update'),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
           );

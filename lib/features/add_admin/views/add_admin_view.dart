@@ -21,7 +21,7 @@ class _AddAdminViewState extends State<AddAdminView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(context, 'Add Admin'),
+      appBar: customAppBar(context, 'Add Admin', isBackButton: false ,isHomeButton: false),
       body: BlocProvider(
         create: (context) => AddAdminCubit(),
         child: BlocConsumer<AddAdminCubit, AddAdminState>(

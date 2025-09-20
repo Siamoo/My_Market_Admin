@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: customAppBar(context, 'Home'),
+      appBar: customAppBar(context, 'Home', isBackButton: false, isHomeButton: false),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

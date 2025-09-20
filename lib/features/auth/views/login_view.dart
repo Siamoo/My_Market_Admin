@@ -31,7 +31,7 @@ class _LoginViewState extends State<LoginView> {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: customAppBar(context, 'Login As An Admin'),
+            appBar: customAppBar(context, 'Login As An Admin', isBackButton: false, isHomeButton: false),
             body: state is LoginLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Form(
