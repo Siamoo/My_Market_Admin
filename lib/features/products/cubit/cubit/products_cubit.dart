@@ -90,6 +90,17 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
+  Future<void> addProduct({required Map<String, dynamic> data}) async {
+    emit(AddProductLoading());
+    try {
+      String? token = await SharedPref.getToken();
+      await apiServices.postData('products_table', data, token);
+      emit(AddProductSuccess());
+    } catch (e) {
+      emit(AddProductError());
+    }
+  }
+
   Future<void> deleteProduct({required String productId}) async {
     emit(DeleteProductLoading());
     try {
