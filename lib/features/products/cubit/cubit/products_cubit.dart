@@ -36,19 +36,19 @@ class ProductsCubit extends Cubit<ProductsState> {
     required String iamgeName,
     required bucketName,
   }) async {
-    const String _storageBaseUrl =
+    const String storageBaseUrl =
         'https://rmmvawnbnfdsyjbgturm.supabase.co/storage/v1/object';
     const String apiKey = anonkey;
     final String? token = await SharedPref.getToken();
-    final String url = '$_storageBaseUrl/$bucketName/$iamgeName';
-    final Dio _dio = Dio();
+    final String url = '$storageBaseUrl/$bucketName/$iamgeName';
+    final Dio dio = Dio();
     final FormData formData = FormData.fromMap({
       'file': MultipartFile.fromBytes(image, filename: iamgeName),
     });
     emit(UploadImageLoading());
 
     try {
-      Response response = await _dio.post(
+      Response response = await dio.post(
         url,
         data: formData,
         options: Options(
@@ -63,7 +63,6 @@ class ProductsCubit extends Cubit<ProductsState> {
         imageUrl =
             'https://rmmvawnbnfdsyjbgturm.supabase.co/storage/v1/object/public/${response.data['Key']}';
 
-        print(response.data['Key']);
         emit(UploadImageSuccess());
       }
     } catch (e) {
@@ -78,7 +77,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(EditProductLoading());
     try {
       String? token = await SharedPref.getToken();
-      Response response=await apiServices.patchData(
+      Response response = await apiServices.patchData(
         'products_table?id=eq.$productId',
         data,
         token,
@@ -88,6 +87,42 @@ class ProductsCubit extends Cubit<ProductsState> {
       }
     } catch (e) {
       emit(EditProductError());
+    }
+  }
+
+  Future<void> deleteProduct({required String productId}) async {
+    emit(DeleteProductLoading());
+    try {
+      String? token = await SharedPref.getToken();
+      Response response1 = await apiServices.deleteData(
+        'comments_table?for_product=eq.$productId',
+        token,
+      );
+      Response response2 = await apiServices.deleteData(
+        'favorite_products?for_product=eq.$productId',
+        token,
+      );
+      Response response3 = await apiServices.deleteData(
+        'purchase_table?for_product=eq.$productId',
+        token,
+      );
+      Response response4 = await apiServices.deleteData(
+        'rates_table?for_product=eq.$productId',
+        token,
+      );
+      Response response5 = await apiServices.deleteData(
+        'products_table?id=eq.$productId',
+        token,
+      );
+      if (response5.statusCode == 204 &&
+          response1.statusCode == 204 &&
+          response2.statusCode == 204 &&
+          response3.statusCode == 204 &&
+          response4.statusCode == 204) {
+        emit(DeleteProductSuccess());
+      }
+    } catch (e) {
+      emit(DeleteProductError());
     }
   }
 }

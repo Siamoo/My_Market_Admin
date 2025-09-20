@@ -31,8 +31,8 @@ class ApiServices {
     );
   }
 
-  Future<Response> deleteData(String endponit) async {
-    return await _dio.delete(endponit);
+  Future<Response> deleteData(String endponit, String? token,) async {
+    return await _dio.delete(endponit, options: Options(headers: {'Authorization': 'Bearer $token'}),);
   }
 
   final Dio _dioauth = Dio(
