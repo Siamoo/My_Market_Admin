@@ -7,9 +7,10 @@ import 'package:my_market_admin/features/products/views/comments_view.dart';
 import 'package:my_market_admin/features/products/views/edit_products_view.dart';
 
 class CustomProductCard extends StatelessWidget {
-  const CustomProductCard({super.key, required this.product});
+  const CustomProductCard({super.key, required this.product,  this.onPressed});
 
   final Products product;
+  final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -89,7 +90,7 @@ class CustomProductCard extends StatelessWidget {
                 CustomElevatedButton(
                   width: width * .07,
                   height: height * .05,
-                  onPressed: () {},
+                  onPressed: onPressed,
                   child: Row(children: [Icon(Icons.delete), Text('Delete')]),
                 ),
               ],

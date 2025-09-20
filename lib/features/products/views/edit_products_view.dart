@@ -7,10 +7,9 @@ import 'package:my_market_admin/core/components/custom_text_form_field.dart';
 import 'package:my_market_admin/core/functions/custom_appbar.dart';
 import 'package:my_market_admin/core/functions/navigation_service.dart';
 import 'package:my_market_admin/core/functions/pick_image.dart';
-import 'package:my_market_admin/core/functions/shared_pref.dart';
-import 'package:my_market_admin/features/home/views/home_view.dart';
 import 'package:my_market_admin/features/products/cubit/cubit/products_cubit.dart';
 import 'package:my_market_admin/features/products/models/products.dart';
+import 'package:my_market_admin/features/products/views/products_view.dart';
 
 class EditProductsView extends StatefulWidget {
   const EditProductsView({super.key, required this.product});
@@ -59,7 +58,10 @@ class _EditProductsViewState extends State<EditProductsView> {
       child: BlocConsumer<ProductsCubit, ProductsState>(
         listener: (context, state) {
           if (state is EditProductSuccess) {
-            NavigationService.pushReplacementTo(context, HomeView());
+            NavigationService.navigateWithoutBack(
+              context,
+              const ProductsView(),
+            );
           }
         },
         builder: (context, state) {
@@ -129,7 +131,6 @@ class _EditProductsViewState extends State<EditProductsView> {
                             onPressed: state is UploadImageLoading
                                 ? null
                                 : () async {
-                                    String? token = await SharedPref.getToken();
                                     cubit.editProduct(
                                       productId: widget.product.id!,
                                       data: {
@@ -143,7 +144,7 @@ class _EditProductsViewState extends State<EditProductsView> {
                                         "category": selectedValue,
                                         "image_url": cubit.imageUrl.isEmpty
                                             ? widget.product.imageUrl
-                                            : cubit.imageUrl
+                                            : cubit.imageUrl,
                                       },
                                     );
                                   },
