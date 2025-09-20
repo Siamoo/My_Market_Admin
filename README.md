@@ -1,16 +1,26 @@
-# my_market_admin
+# 🛒 Admin E-Commerce Dashboard (Flutter + Supabase)
 
-A new Flutter project.
+An **Admin Panel** for an E-commerce platform built with **Flutter** and powered by **Supabase** as the backend (Backend-as-a-Service).  
+This project allows the admin to manage products, categories, and orders through a simple and clean interface.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- 🔐 Secure admin authentication (Supabase Auth).
+- 📦 Product Management:
+  - Add new products.
+  - Edit product details.
+  - Delete products.
+- 🗂️ Category Management:
+  - Add new categories.
+  - Edit or delete categories.
+- 🛍️ Order Management:
+  - View all orders.
+  - Update order status (New, Processing, Completed).
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Frontend**: Flutter (Web + Mobile).
+- **State Management**: Bloc 
+- **Backend & Database**: [Supabase](https://supabase.com/) (PostgreSQL + Auth + Storage).
+- **Authentication**: Supabase Auth (JWT-based).
+- **Storage**: Supabase Storage for product images.
